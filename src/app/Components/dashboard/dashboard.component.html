@@ -1,0 +1,77 @@
+<div class="container">
+  <div>
+    <p>Today is {{ today | date : "fullDate" }}</p>
+  </div>
+
+  <div>
+    <button class="btn btn-outline-primary mx-3" (click)="lastWeek()">
+      Last Week
+    </button>
+    <button class="btn btn-outline-danger" (click)="nextWeek()">
+      Next Week
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>{{ currentYear }}</th>
+        <th *ngFor="let day of dateRange">{{ day | date : "MMM d" }}</th>
+      </tr>
+
+      <tr>
+        <th>Week {{ weekNumber }}</th>
+        <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let job of jobs">
+        <tr>
+          <th>{{ job.title }}</th>
+          <td *ngFor="let day of dateRange">
+            <div *ngFor="let worker of dash">
+              <ng-container
+                *ngIf="
+                  worker.jobTitle === job.title && isMatchingDate(worker, day)
+                "
+              >
+                <td *ngIf="worker.timeOfDay === 'Evening'">
+                  {{ worker.jobTitle }}
+                </td>
+                <td *ngIf="worker.timeOfDay === 'Evening'">
+                  {{ worker.firstName }}
+                </td>
+                <td *ngIf="worker.timeOfDay === 'Evening'">
+                  {{ worker.timeOfDay }}
+                </td>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div>
+    <form>
+      <h3>Choose Date:</h3>
+      <input type="date" name="" id="" />
+      <p>Shift:</p>
+      <button>Morning</button>
+      <button>Evening</button>
+      <button type="submit">Add Schedule</button>
+    </form>
+  </div>
+</div>
+<!-- avixot dxevandeli dxe
+  vtqvat array [31,29,31,30,31,30,31,31,30,31,30,31,]
+  15.01 es nishnavs 15+31=46
+  while 48 >= 7
+ gamoklebebi da next weeks ro daawveba magas count++ ra da ramdeni iteraciac
+ iyo imdeni neext week  ro iyo magis mere gamochndes
+ exla rogor gavigot romel jobshi gamochndes
+
+
+
+
+
+-->

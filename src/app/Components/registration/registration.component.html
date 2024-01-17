@@ -1,0 +1,153 @@
+<section>
+  <!-- taken from website only for this 😂 -->
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+  <span></span> <span></span> <span></span> <span></span> <span></span>
+
+  <div class="signin">
+    <div class="content">
+      <h2>Sign In</h2>
+
+      <form class="form" [formGroup]="reactiveForm" (ngSubmit)="Submitted()">
+        <div class="inputBox">
+          <input type="text" required formControlName="firstName" />
+          <i>First Name</i>
+          <small
+            *ngIf="
+              reactiveForm.get('firstName')?.invalid &&
+              reactiveForm.get('firstName')?.touched
+            "
+            >*First Name is a required field</small
+          >
+        </div>
+        <div class="inputBox">
+          <input type="text" required formControlName="lastName" />
+          <i>Last Name</i>
+          <small
+            *ngIf="
+              reactiveForm.get('lastName')?.invalid &&
+              reactiveForm.get('lastName')?.touched
+            "
+            >*Last Name is a required field</small
+          >
+        </div>
+        <div class="inputBox">
+          <input type="email" required formControlName="email" /> <i>Email</i>
+          <small
+            *ngIf="
+              reactiveForm.get('email')?.invalid &&
+              reactiveForm.get('email')?.touched
+            "
+            >*email is a required field</small
+          >
+        </div>
+
+        <div class="inputBox">
+          <input type="password" required formControlName="password" />
+          <i>Password</i>
+          <small
+            *ngIf="
+              reactiveForm.get('password')?.invalid &&
+              reactiveForm.get('password')?.touched
+            "
+            >*Password is a required field</small
+          >
+        </div>
+        <div class="inputBox">
+          <input type="password" required formControlName="confirmPassword" />
+          <i>Confirm Password</i>
+          <small
+            *ngIf="
+              reactiveForm.get('confirmPassword')?.invalid &&
+              reactiveForm.get('confirmPassword')?.touched && !reactiveForm.errors?.['passwordMatchError']
+            "
+            >*Confirm Password is a required field</small
+          >
+          <small
+            class="match-error"
+            *ngIf="reactiveForm.errors?.['passwordMatchError']"
+          >
+            Passwords does not match
+          </small>
+        </div>
+
+        <div class="form-floating back">
+          <select
+            class="form-select"
+            id="floatingSelect"
+            aria-label="Floating label select example"
+            name="jobs"
+            formControlName="jobId"
+          >
+            <option *ngFor="let job of jobs" [value]="job.id">
+              {{ job.title }}
+            </option>
+          </select>
+          <label for="floatingSelect">Choose one of the jobs</label>
+        </div>
+
+        <div class="links">
+          <a class="forget" href="#">Forgot Password</a>
+          <a routerLink="/login">Sign in</a>
+        </div>
+
+        <div class="inputBox">
+          <input
+            [disabled]="reactiveForm.invalid"
+            type="submit"
+            value="Register"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

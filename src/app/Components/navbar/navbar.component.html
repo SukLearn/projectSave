@@ -1,0 +1,187 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="mx-4 navbar-brand" routerLink="/home">Shift Controller</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/home"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            >About Us</a
+          >
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Authors
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                href="https://www.facebook.com/Luka.Tarkhnishvili.kk"
+                >Action Luka Tarkhnishvili</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="https://www.facebook.com/profile.php?id=100008407458422"
+                >Design Sofo Tolordava</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="https://www.facebook.com/theoneandonlylerwi"
+                >Team Support Giorgi Maghlakelidze</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="https://www.facebook.com/irakli.chabievi"
+                >Lecturer Irakli Chabiev</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link disabled text-light"
+            href="#"
+            tabindex="-1"
+            aria-disabled="true"
+            >Made With Love
+          </a>
+        </li>
+        <li class="nav-item">
+          <button
+            type="button"
+            class="btn text-light"
+            data-bs-toggle="modal"
+            data-bs-target="#workers"
+          >
+            Workers
+          </button>
+        </li>
+        <li class="nav-item">
+          <button
+            type="button"
+            class="btn text-light"
+            data-bs-toggle="modal"
+            data-bs-target="#admins"
+          >
+            Admins
+          </button>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li *ngIf="!token" class="nav-item">
+          <a class="nav-link text-light" routerLink="/registration"
+            >Registration</a
+          >
+        </li>
+        <li *ngIf="!token" class="nav-item">
+          <a
+            href="#"
+            class="nav-link text-light pe-none"
+            tabindex="-1"
+            aria-disabled="true"
+            >/</a
+          >
+        </li>
+        <li *ngIf="!token" class="nav-item">
+          <a class="nav-link text-light" routerLink="/login">Login</a>
+        </li>
+        <li *ngIf="token" class="nav-item">
+          <button class="btn text-light" (click)="deleteLocalStorage()">
+            LogOut
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- modals -->
+<div
+  class="modal fade"
+  id="workers"
+  tabindex="-1"
+  aria-labelledby="workers"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="workers">Workers</h1>
+        <button
+          type="button"
+          class="btn-close bg-light"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Email: asdasd@gmail.com <br />
+        Password: asdasd
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="admins"
+  tabindex="-1"
+  aria-labelledby="admins"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="admins">Admins</h1>
+        <button
+          type="button"
+          class="btn-close bg-light"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Email: <br />
+        Password:
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

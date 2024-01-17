@@ -1,0 +1,33 @@
+* {
+  background-color: #212529;
+  margin: 0;
+
+  color: white;
+
+  height: auto;
+}
+body {
+  background-color: #212529;
+}
+.container {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+table {
+  background-color: #212529;
+  color: white;
+}
+thead {
+  padding: 5px;
+}
+tr {
+  padding: 5px;
+}
+th,
+td {
+  padding: 5px 15px 0 15px;
+  border: 1px white solid;
+}
+.mine {
+  height: 100px;
+}
