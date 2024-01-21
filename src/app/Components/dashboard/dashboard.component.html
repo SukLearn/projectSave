@@ -35,15 +35,21 @@
                   worker.jobTitle === job.title && isMatchingDate(worker, day)
                 "
               >
-                <td *ngIf="worker.timeOfDay === 'Evening'">
+                <!-- <span class="morning" *ngIf="worker.timeOfDay === 'Morning'">
                   {{ worker.jobTitle }}
-                </td>
-                <td *ngIf="worker.timeOfDay === 'Evening'">
-                  {{ worker.firstName }}
-                </td>
-                <td *ngIf="worker.timeOfDay === 'Evening'">
+                </span> -->
+                <span class="morning" *ngIf="worker.timeOfDay === 'Morning'">
+                  {{ worker.firstName + " " + worker.lastName }}
+                </span>
+                <span class="morning" *ngIf="worker.timeOfDay === 'Morning'">
                   {{ worker.timeOfDay }}
-                </td>
+                </span>
+                <span class="evening" *ngIf="worker.timeOfDay === 'Evening'">
+                  {{ worker.firstName + " " + worker.lastName }}
+                </span>
+                <span class="evening" *ngIf="worker.timeOfDay === 'Evening'">
+                  {{ worker.timeOfDay }}
+                </span>
               </ng-container>
             </div>
           </td>
@@ -52,26 +58,13 @@
     </tbody>
   </table>
   <div>
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <h3>Choose Date:</h3>
-      <input type="date" name="" id="" />
+      <input type="date" name="date" [(ngModel)]="schedule.date" required />
       <p>Shift:</p>
-      <button>Morning</button>
-      <button>Evening</button>
+      <button type="button" (click)="schedule.time = 'Morning'">Morning</button>
+      <button type="button" (click)="schedule.time = 'Evening'">Evening</button>
       <button type="submit">Add Schedule</button>
     </form>
   </div>
 </div>
-<!-- avixot dxevandeli dxe
-  vtqvat array [31,29,31,30,31,30,31,31,30,31,30,31,]
-  15.01 es nishnavs 15+31=46
-  while 48 >= 7
- gamoklebebi da next weeks ro daawveba magas count++ ra da ramdeni iteraciac
- iyo imdeni neext week  ro iyo magis mere gamochndes
- exla rogor gavigot romel jobshi gamochndes
-
-
-
-
-
--->

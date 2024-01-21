@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobsService } from '../../Services/jobs.service';
 import { dash } from 'src/app/Interface/dashboard';
-import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,39 +10,34 @@ import * as moment from 'moment';
 })
 export class DashboardComponent implements OnInit {
   public jobs: any[] = [];
-  public users: any[] = [];
   public dash: dash[] = [];
+  public schedule: any = {};
 
-  constructor(private JobsService: JobsService) {}
+  data = {
+    startTime: '',
+    endTime: '',
+    userId: 0,
+  };
+
+  constructor(private JobsService: JobsService, private router: Router) {}
+
   ngOnInit(): void {
     this.fetchJobs();
-    this.fetchUsers();
     this.fetchDashBoard();
   }
+
   fetchJobs(): void {
     this.JobsService.getJobs().subscribe(
       (data: any) => {
         this.jobs = data;
-        console.log(this.jobs);
-        // WORKS
+        // console.log(this.jobs);
       },
       (error) => {
         console.log('Error fetching Jobs', error);
       }
     );
   }
-  fetchUsers(): void {
-    this.JobsService.getUsers().subscribe(
-      (data: any) => {
-        this.users = data;
-        // console.log(this.users);
-        // WORKS
-      },
-      (error) => {
-        console.log('Error fetching Users', error);
-      }
-    );
-  }
+
   fetchDashBoard(): void {
     this.JobsService.getDashBoard().subscribe(
       (data: any) => {
@@ -53,9 +48,7 @@ export class DashboardComponent implements OnInit {
           timeOfDay: this.getTimeOfDay(item.startTime, item.endTime),
         }));
         this.filterDashBoard();
-
-        console.log(this.dash);
-        // WORKS
+        // console.log(this.dash);
       },
       (error) => {
         console.log('Error Fetching DashBoard Users', error);
@@ -85,60 +78,26 @@ export class DashboardComponent implements OnInit {
   // END
 
   // Changing Date Format
-  // private formatDate(dateTimeString: string): string {
-  //   const options: Intl.DateTimeFormatOptions = {
-  //     month: 'numeric',
-  //     day: 'numeric',
-  //     hour: 'numeric',
-  //   };
-  //   const formattedDate = new Date(dateTimeString).toLocaleString(
-  //     undefined,
-  //     options
-  //   );
-  //   return formattedDate;
-  // }
-  // END
   private formatDate(dateTimeString: string): string {
     const options: Intl.DateTimeFormatOptions = {
       month: 'numeric',
       day: 'numeric',
       hour: 'numeric',
     };
-
-    // Use moment to parse the date string
-    const parsedDate = moment(
-      dateTimeString,
-      'YYYY-MM-DDTHH:mm:ss.SSS'
-    ).toDate();
-
-    const formattedDate = parsedDate.toLocaleString(undefined, options);
+    const formattedDate = new Date(dateTimeString).toISOString().slice(0, 10);
     return formattedDate;
   }
-
-  months = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  // console.log(this.dash[0].startTime);
-  test() {
-    const ricxvebi = [];
-    for (let i = 0; i < this.dash.length; i++) {
-      const parts = this.dash[i].startTime.split('.');
-      const days = parseInt(parts[0]);
-      const givenMonths = parseInt(parts[1]) - 1;
-
-      var wavida = days % 7;
-      if (wavida % 7 == 0) {
-        wavida = 7;
-      }
-      console.log(wavida);
-    }
-  }
+  // END
 
   // Generating Date
   startDate = new Date(2024, 0, 15);
+
   endDate = new Date(
     this.startDate.getFullYear(),
     this.startDate.getMonth(),
     this.startDate.getDate() + 6
   );
+
   currentYear = new Date().getFullYear();
   weekNumber = 1;
   dateRange = this.generateDateRange();
@@ -150,7 +109,6 @@ export class DashboardComponent implements OnInit {
     this.endDate.setDate(this.endDate.getDate() - 7);
     this.dateRange = this.generateDateRange();
     this.weekNumber--;
-    this.test();
   }
 
   nextWeek() {
@@ -169,11 +127,58 @@ export class DashboardComponent implements OnInit {
 
     return result;
   }
+  //  Generating Date END
+  // Matching Table's date and user's date to correctly display
   isMatchingDate(worker: any, date: Date): boolean {
     const workerDate = new Date(worker.startTime);
-    console.log(workerDate);
 
     return workerDate.toDateString() === date.toDateString();
   }
-  //  Generating Date END
+
+  // Submitting Workers Schedule
+  onSubmit() {
+    const userId = localStorage.getItem('userId');
+    if (userId !== null) {
+      this.data.userId = parseInt(userId, 10);
+    } else {
+      this.router.navigate(['/login']);
+    }
+    const selectedDate = new Date(this.schedule.date);
+    const selectedDateEnd = new Date(this.schedule.date);
+    let add = 0;
+
+    // let timeDifference = this.schedule.time;
+    //  === 'Morning' ? 9 : 16;
+    // i don't understand why it cant take 9 as written
+    // instead it takes 7
+
+    if (this.schedule.time === 'Morning') {
+      selectedDate.setHours(add + 11);
+      selectedDateEnd.setHours(add + 18);
+    } else {
+      selectedDate.setHours(add + 19);
+      selectedDateEnd.setHours(add + 27);
+    }
+
+    this.data.startTime = selectedDate.toISOString();
+    this.data.endTime = selectedDateEnd.toISOString();
+
+    this.JobsService.addSchedule(this.data).subscribe(
+      (response) => {
+        console.log('Data sent successfully', response);
+        console.log(this.data);
+
+        console.log(
+          this.data.startTime,
+          ' idk why it gets -2 properties',
+          this.data.endTime
+        );
+        window.location.reload();
+        //TODO make message that it successfully submitted and waiting for the boss approve
+      },
+      (error) => {
+        console.log('Error sending data:', error);
+      }
+    );
+  }
 }

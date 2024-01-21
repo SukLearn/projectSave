@@ -11,6 +11,7 @@ import { AdminComponent } from './Components/admin/admin.component';
 
 // Auth Guard START
 import { AuthGuard } from './Services/auth.guard.service';
+import { NavbarComponent } from './Components/navbar/navbar.component';
 // Auth Guard END
 
 const routes: Routes = [
@@ -46,4 +47,5 @@ export const routingComponents = [
   HomeComponent,
   DashboardComponent,
   AdminComponent,
+  NavbarComponent,
 ]; // Good practice to write in array so it take less place in app.module.ts and change dynamically (yes we need to import there too)

@@ -26,6 +26,12 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+  ngOnInit() {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
   Submit() {
     this.userData.email = this.loginForm.get('email')?.value;
     this.userData.password = this.loginForm.get('password')?.value;
@@ -36,19 +42,24 @@ export class LoginComponent {
         localStorage.setItem('authToken', token);
         console.log(`Login was successful`);
 
+        let helper = new JwtHelperService();
+        const decodedToken = helper.decodeToken(token);
         // console.log(this.userData);
         // console.log('received token is ', token);
         // let b = atob(token.split('.')[1]);
-
-        // let helper = new JwtHelperService();
-        // const decodedToken = helper.decodeToken(token);
         // console.log(decodedToken);
+        const userId =
+          decodedToken[
+            'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+          ];
+        localStorage.setItem('userId', userId);
 
         if (token) {
           setTimeout(() => {
             this.router.navigate(['/dashboard']);
           }, 500);
         } else {
+          // TODO Make Error component
           // this.router.navigate(['/error']);
         }
       },

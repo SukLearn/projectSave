@@ -1,1 +1,223 @@
-<p>admin works!</p>
+<div class="container">
+  <div>
+    <p>Today is {{ today | date : "fullDate" }}</p>
+  </div>
+
+  <div>
+    <button class="btn btn-outline-primary mx-3" (click)="lastWeek()">
+      Last Week
+    </button>
+    <button class="btn btn-outline-danger" (click)="nextWeek()">
+      Next Week
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>{{ currentYear }}</th>
+        <th *ngFor="let day of dateRange">{{ day | date : "MMM d" }}</th>
+      </tr>
+
+      <tr>
+        <th>Week {{ weekNumber }}</th>
+        <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let job of jobs">
+        <tr>
+          <th>{{ job.title }}</th>
+          <td *ngFor="let day of dateRange">
+            <div *ngFor="let worker of dash">
+              <ng-container
+                *ngIf="
+                  worker.jobTitle === job.title &&
+                  isMatchingDate(worker, day) &&
+                  worker.isApproved
+                "
+              >
+                <span class="morning" *ngIf="worker.timeOfDay === 'Morning'">
+                  {{
+                    worker.id + " " + worker.firstName + " " + worker.lastName
+                  }}
+                </span>
+                <span class="morning" *ngIf="worker.timeOfDay === 'Morning'">
+                  {{ worker.timeOfDay }}
+                </span>
+                <span class="evening" *ngIf="worker.timeOfDay === 'Evening'">
+                  {{
+                    worker.id + " " + worker.firstName + " " + worker.lastName
+                  }}
+                </span>
+                <span class="evening" *ngIf="worker.timeOfDay === 'Evening'">
+                  {{ worker.timeOfDay }}
+                </span>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <!-- asdasdasd -->
+  <table>
+    <thead>
+      <tr>
+        <th>{{ currentYear }}</th>
+        <th *ngFor="let day of dateRange">{{ day | date : "MMM d" }}</th>
+      </tr>
+
+      <tr>
+        <th>Week {{ weekNumber }}</th>
+        <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let job of jobs">
+        <tr>
+          <th>{{ job.title }}</th>
+          <td *ngFor="let day of dateRange">
+            <div *ngFor="let worker of dash">
+              <ng-container
+                *ngIf="
+                  worker.jobTitle === job.title &&
+                  isMatchingDate(worker, day) &&
+                  !worker.isApproved
+                "
+              >
+                <span
+                  class="morningNames"
+                  *ngIf="worker.timeOfDay === 'Morning'"
+                >
+                  {{
+                    worker.id + " " + worker.firstName + " " + worker.lastName
+                  }}
+                </span>
+                <span class="morning" *ngIf="worker.timeOfDay === 'Morning'">
+                  {{ worker.timeOfDay }}
+                </span>
+                <span
+                  class="eveningNames"
+                  *ngIf="worker.timeOfDay === 'Evening'"
+                >
+                  {{
+                    worker.id + " " + worker.firstName + " " + worker.lastName
+                  }}
+                </span>
+                <span class="evening" *ngIf="worker.timeOfDay === 'Evening'">
+                  {{ worker.timeOfDay }}
+                </span>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div>
+    <form>
+      <!-- TODO
+        Approve ADD DONE
+  SCHEDULE DELETE  DONE
+  Job DELETE DONE
+  Job ADD DONE
+  Change User Role MAKE ADMIN DONE
+  DELETE User DONE
+  TODO MAKE FOR DELETING SCHEDULE MODAL WITH ALL APPROVED AND UNAPPROVED SHIFTS
+-->
+      <!--TODO lets make red delete users and green make admin with one modal Name Users -->
+
+      <!-- <label for="approve"
+        >Approve
+        <input type="number" name="approve" [(ngModel)]="scheduleId" />
+      </label>
+      <button (click)="Approve()">Approve Schedule</button> -->
+
+      <input type="number" name="makeAdmin" />
+      <label for="makeAdmin">Change role</label>
+      <button
+        type="button"
+        class="btn text-light"
+        data-bs-toggle="modal"
+        data-bs-target="#users"
+      >
+        makeAdmin
+      </button>
+      <!-- make modal of all users with id and lastName firstName DONE-->
+      <!-- <label for="addJob"
+        >add New Job
+        <input type="text" name="addJob" id="addJob" [(ngModel)]="jobTitle" />
+      </label>
+      <button (click)="addJob()">Add New Job</button> -->
+      <fieldset>
+        <legend>asd</legend>
+        <!-- make around red solid like dangerous and be careful-->
+        <button
+          type="button"
+          class="btn text-light"
+          data-bs-toggle="modal"
+          data-bs-target="#users"
+        >
+          Delete User
+        </button>
+        <label for="deleteUser">delete User</label><br /><br />
+        <!-- <label for="deleteJob">delete Job</label><br /><br />
+        <select
+          class="form-select"
+          id="deleteJob"
+          aria-label="Floating label select"
+          name="deleteJob"
+          [(ngModel)]="jobId"
+        >
+          <option *ngFor="let job of jobs" [value]="job.id">
+            {{ job.title }}
+          </option>
+        </select>
+        <button (click)="DeleteJob()">Delete Job</button> -->
+
+        <!-- <label for="Delete"
+          >Delete
+          <input type="number" name="Delete" [(ngModel)]="DeleteScheduleId" />
+        </label>
+        <button (click)="DeleteSchedule()">Delete Schedule</button> -->
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="users"
+  tabindex="-1"
+  aria-labelledby="users"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="users">Users</h1>
+        <button
+          type="button"
+          class="btn-close bg-light"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngFor="let user of users">
+          <p *ngIf="user.roleId === 2">
+            {{ user.id + " " + user.firstName + " " + user.lastName }}
+            <button (click)="deleteUser(user.id)">Delete User</button>
+            <button (click)="BecameAdmin(user.id)">Change Role To Admin</button>
+          </p>
+        </ng-container>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
