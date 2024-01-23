@@ -1,0 +1,138 @@
+<!--  -->
+<div
+  class="d-flex text-center text-bg-dark cover-container w-100 h-100 p-3 mx-auto flex-column"
+>
+  <main class="mt-3 py-3 px-5">
+    <h1 class="display-5 my-5 py-5">Start Your Flexible Work Journey</h1>
+
+    <div class="container-lg">
+      <div class="row justify-content-center">
+        <div class="col-md-5 text-center text-md-start">
+          <h1 class="fs-1 mt-lg-4">About Us</h1>
+          <p class="lead">
+            At our Company, our mission is to empower workers by providing a
+            seamless platform where they can connect with meaningful job
+            opportunities, customize their work schedules, and thrive in a
+            flexible and dynamic employment landscape. We believe in creating a
+            world where every worker has the freedom to choose and succeed.
+          </p>
+        </div>
+        <div class="col-md-5 text-center d-none d-md-block">
+          <img
+            class="img-fluid"
+            src="https://www.knstek.com/wp-content/uploads/2020/04/learning_img.png"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg">
+      <div class="row justify-content-center">
+        <div class="col-md-5 text-center d-none d-md-block">
+          <img
+            class="img-fluid"
+            src="https://www.expertmarketingstudio.com/wp-content/uploads/2018/10/about.png"
+            alt=""
+          />
+        </div>
+        <div class="col-md-5 text-center text-md-start">
+          <h1 class="fs-1 mt-lg-4">Our Story</h1>
+          <p class="lead">
+            Founded in 2023, our Company started as a response to the evolving
+            needs of today's workforce. Fueled by the desire to bridge the gap
+            between job seekers and employers seeking flexibility, our journey
+            has been one of continuous innovation. From humble beginnings to
+            becoming a leading force in the gig economy, we are driven by the
+            belief that work should adapt to individuals, not the other way
+            around
+          </p>
+        </div>
+      </div>
+    </div>
+    <h1 class="my-5 py-5">What we Offer:</h1>
+
+    <div class="container-lg my-5">
+      <div class="row justify-content-center">
+        <div class="col-md-5 text-center d-none d-md-block">
+          <img
+            class="img-fluid"
+            src="https://humetisgroup.com/img/hero-1.png"
+            alt=""
+          />
+        </div>
+        <div class="col-md-5 text-center text-md-start">
+          <h1 class="fs-2 mt-lg-4 lead">Flexibility:</h1>
+          <p class="lead">
+            Workers can select shifts that align with their availability,
+            creating a better work-life balance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg my-5">
+      <div class="row justify-content-center">
+        <div class="col-md-5 text-center text-md-start">
+          <h1 class="fs-2 mt-lg-4 lead">Easy Application Process:</h1>
+          <p class="lead">
+            Streamlined and user-friendly job application processes make it
+            convenient for workers to apply for positions of their choice.
+          </p>
+        </div>
+        <div class="col-md-5 text-center d-none d-md-block">
+          <img
+            class="img-fluid"
+            src="https://spidev.in/assets/images/bann1.png"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg my-5 pb-5">
+      <div class="row justify-content-center">
+        <div class="col-md-5 text-center d-none d-md-block">
+          <img
+            class="img-fluid"
+            src="https://www.devvorld.com/assets/images/aboutus.png"
+            alt=""
+          />
+        </div>
+        <div class="col-md-5 text-center text-md-start">
+          <h1 class="fs-2 mt-lg-4 lead">Real-Time Updates:</h1>
+          <p class="lead">
+            Workers receive instant updates on the status of their applications
+            and any changes in the job schedule.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <p class="lead my-5">
+      <a
+        *ngIf="!token"
+        routerLink="/registration"
+        class="btn btn-lg btn-light fw-bold border-white bg-white"
+        >Start Working Now</a
+      >
+      <a
+        *ngIf="token"
+        routerLink="/admin"
+        class="btn btn-lg btn-light fw-bold border-white bg-white"
+        >Back To Work</a
+      >
+    </p>
+  </main>
+
+  <footer class="pt-2 mt-2 text-white-50">
+    <p>
+      Made with
+      <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a> and
+      by Team
+      <a href="https://www.youtube.com/watch?v=6-1Ue0FFrHY" class="text-white"
+        >Long Long Man</a
+      >.
+    </p>
+  </footer>
+</div>
