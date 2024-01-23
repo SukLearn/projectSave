@@ -77,6 +77,7 @@
         </li>
         <li class="nav-item">
           <button
+            *ngIf="!token"
             type="button"
             class="btn text-light"
             data-bs-toggle="modal"
@@ -84,9 +85,13 @@
           >
             Workers
           </button>
+          <a *ngIf="token" class="nav-link text-light" routerLink="/dashboard"
+            >Workers</a
+          >
         </li>
         <li class="nav-item">
           <button
+            *ngIf="!token"
             type="button"
             class="btn text-light"
             data-bs-toggle="modal"
@@ -94,6 +99,9 @@
           >
             Admins
           </button>
+          <a *ngIf="token" class="nav-link text-light" routerLink="/admin"
+            >Admins</a
+          >
         </li>
       </ul>
 
@@ -144,7 +152,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        Email: asdasd@gmail.com <br />
+        Email: test@test <br />
         Password: asdasd
       </div>
       <div class="modal-footer">
@@ -155,6 +163,7 @@
     </div>
   </div>
 </div>
+
 <div
   class="modal fade"
   id="admins"
@@ -174,8 +183,8 @@
         ></button>
       </div>
       <div class="modal-body">
-        Email: <br />
-        Password:
+        Email: admin@admin<br />
+        Password: asdasd
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

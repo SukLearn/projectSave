@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { JwtService } from './jwt.service';
 
 @Injectable({
@@ -13,10 +8,7 @@ import { JwtService } from './jwt.service';
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     const token = localStorage.getItem('authToken');
     if (!token) {
       this.router.navigate(['/login']);
@@ -30,7 +22,6 @@ export class AuthGuard implements CanActivate {
         decodedToken[
           'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
         ];
-
       if (route.url[0].path === 'admin' && userId === '1') {
         console.log('Allowed to access admin');
         return true;

@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
           timeOfDay: this.getTimeOfDay(item.startTime, item.endTime),
         }));
         this.filterDashBoard();
-        // console.log(this.dash);
+        console.log(this.dash);
       },
       (error) => {
         console.log('Error Fetching DashBoard Users', error);
@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
   // END
 
   // Generating Date
-  startDate = new Date(2024, 0, 15);
+  startDate = new Date(2024, 0, 22);
 
   endDate = new Date(
     this.startDate.getFullYear(),

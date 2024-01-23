@@ -12,6 +12,8 @@ import { AdminComponent } from './Components/admin/admin.component';
 // Auth Guard START
 import { AuthGuard } from './Services/auth.guard.service';
 import { NavbarComponent } from './Components/navbar/navbar.component';
+import { ErrorComponent } from './Components/error/error.component';
+import { Error400Component } from './Components/error400/error400.component';
 // Auth Guard END
 
 const routes: Routes = [
@@ -23,7 +25,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
-
+  { path: 'error-400', component: Error400Component }, // if status is 400 go to this page
   // Guarded Routes START
   {
     path: 'dashboard',
@@ -32,8 +34,9 @@ const routes: Routes = [
   },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   // Guarded Routes END
-  { path: '**', redirectTo: '/home' }, // Redirect page 404 if route not found
-  // { path: '**', redirectTo: '/error' }, // Redirect page 404 if route not found
+
+  { path: 'error', component: ErrorComponent }, // define what is error
+  { path: '**', redirectTo: 'error' }, // if route isn't found it goes to error page
 ];
 
 @NgModule({
@@ -48,4 +51,6 @@ export const routingComponents = [
   DashboardComponent,
   AdminComponent,
   NavbarComponent,
+  Error400Component,
+  ErrorComponent,
 ]; // Good practice to write in array so it take less place in app.module.ts and change dynamically (yes we need to import there too)
