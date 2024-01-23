@@ -1,3 +1,5 @@
+<h1>Project made with Luka Tarknishvili, sofo tolordava and giorgi maghlakelidze</h1>
+
 # Project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
