@@ -73,16 +73,7 @@ export class JobsService {
       newRoleId: newRoleId,
     });
   }
-  // AddJob(jobTitle: string): Observable<HttpEvent<any>> {
-  //   return this.http
-  //     .post(this.adminUrl + 'add-new-job', jobTitle, { observe: 'response' })
-  //     .pipe(
-  //       catchError((error: HttpErrorResponse) => {
-  //         console.error('an error occurred:', error);
-  //         return throwError(error);
-  //       })
-  //     );
-  // }
+
   DeleteSchedule(DeleteScheduleId: number): Observable<any> {
     return this.http.delete(
       `${this.adminUrl}delete-schedule/${DeleteScheduleId}`

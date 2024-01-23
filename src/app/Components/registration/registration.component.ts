@@ -48,7 +48,8 @@ export class RegistrationComponent implements OnInit {
     this.JobsService.getJobs().subscribe(
       (data: any) => {
         this.jobs = data;
-        // console.log(this.jobs); WORKS
+        // console.log(this.jobs);
+        // WORKS;
       },
       (error) => {
         console.log('Error fetching Jobs', error);

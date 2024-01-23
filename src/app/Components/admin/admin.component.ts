@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { JobsService } from '../../Services/jobs.service';
 import { dash } from 'src/app/Interface/dashboard';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -11,11 +12,13 @@ export class AdminComponent {
   public jobs: any[] = [];
   public users: any[] = [];
   public dash: dash[] = [];
-  public schedule: any = {};
+  // public schedule: any = {};
   public scheduleId!: number;
   public DeleteScheduleId!: number;
   public jobId!: number;
   public jobTitle!: string;
+  public newRoleId: number = 1;
+
   data = {
     startTime: '',
     endTime: '',
@@ -64,7 +67,7 @@ export class AdminComponent {
           timeOfDay: this.getTimeOfDay(item.startTime, item.endTime),
         }));
         // this.filterDashBoard();
-        // console.log(this.dash);
+        console.log(this.dash);
       },
       (error) => {
         console.log('Error Fetching DashBoard Users', error);
@@ -98,16 +101,14 @@ export class AdminComponent {
   // END
 
   // Generating Date
-  startDate = new Date(2024, 0, 15);
-
+  currentYear = new Date().getFullYear();
+  startDate = new Date(2024, 0, 22);
   endDate = new Date(
     this.startDate.getFullYear(),
     this.startDate.getMonth(),
     this.startDate.getDate() + 6
   );
-
-  currentYear = new Date().getFullYear();
-  weekNumber = 1;
+  weekNumber = this.getWeekNumber(this.startDate);
   dateRange = this.generateDateRange();
   today: number = Date.now();
   daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -115,16 +116,20 @@ export class AdminComponent {
   lastWeek() {
     this.startDate.setDate(this.startDate.getDate() - 7);
     this.endDate.setDate(this.endDate.getDate() - 7);
-    this.dateRange = this.generateDateRange();
-    this.weekNumber--;
+    this.updateWeekInfo();
   }
 
   nextWeek() {
     this.startDate.setDate(this.startDate.getDate() + 7);
     this.endDate.setDate(this.endDate.getDate() + 7);
-    this.dateRange = this.generateDateRange();
-    this.weekNumber++;
+    this.updateWeekInfo();
   }
+
+  updateWeekInfo() {
+    this.weekNumber = this.getWeekNumber(this.startDate);
+    this.dateRange = this.generateDateRange();
+  }
+
   generateDateRange() {
     let currentDate = new Date(this.startDate);
     const result = [];
@@ -134,6 +139,27 @@ export class AdminComponent {
     }
     return result;
   }
+
+  getWeekNumber(date: Date): number {
+    const startOfYear = new Date(date.getFullYear(), 0, 1);
+    const days = Math.floor(
+      (date.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000)
+    );
+    let totalWeeks = Math.ceil((days + startOfYear.getDay() + 1) / 7);
+    if (totalWeeks === 52) {
+      this.currentYear -= 1;
+    }
+    return totalWeeks;
+  }
+  // showToday() {
+  //   this.startDate = new Date(); // Reset to today's date
+  //   this.endDate = new Date(
+  //     this.startDate.getFullYear(),
+  //     this.startDate.getMonth(),
+  //     this.startDate.getDate() + 6
+  //   );
+  //   this.updateWeekInfo();
+  // }
   //  Generating Date END
 
   // Matching Table's date and user's date to correctly display
@@ -145,13 +171,14 @@ export class AdminComponent {
 
   // Submitting Workers Schedule
 
-  Approve() {
-    if (this.scheduleId) {
+  Approve(ScheduleId: number) {
+    if (ScheduleId) {
+      this.scheduleId = ScheduleId;
       this.JobsService.ApproveSchedule(this.scheduleId).subscribe(
         (response) => {
           console.log('Schedule Id sent successfully', response);
 
-          // window.location.reload();
+          window.location.reload();
           //TODO make message that says it successfully sent
         },
         (error) => {
@@ -166,9 +193,10 @@ export class AdminComponent {
       alert('Please Enter a Valid Schedule ID');
     }
   }
-  DeleteSchedule() {
-    //  && this.dash[this.scheduleId].isApproved === true
-    if (this.DeleteScheduleId) {
+  DeleteSchedule(ScheduleId: number) {
+    if (ScheduleId) {
+      this.DeleteScheduleId = ScheduleId;
+
       this.JobsService.DeleteSchedule(this.DeleteScheduleId).subscribe(
         (response) => {
           console.log('Schedule Id Deleted successfully', response);
@@ -194,12 +222,15 @@ export class AdminComponent {
       this.JobsService.DeleteJob(this.jobId).subscribe(
         (response) => {
           console.log('Job Deleted successfully', response);
+          window.location.reload();
         },
         (error) => {
           if (error.status === 404) {
-            alert('If Someone Has a shift This Job Cant be Deleted');
+            this.router.navigate(['/error']);
+          } else if (error.status === 400) {
+            this.router.navigate(['/error-400']);
           } else {
-            console.log('IDK WHAT DID YOU DO', error);
+            console.log('Error Occurred:', error);
           }
         }
       );
@@ -216,9 +247,11 @@ export class AdminComponent {
         },
         (error) => {
           if (error.status === 404) {
-            alert('test test');
+            this.router.navigate(['/error']);
+          } else if (error.status === 400) {
+            this.router.navigate(['/error-400']);
           } else {
-            console.log('Error Occurred.', error);
+            console.log('Error Occurred:', error);
           }
         }
       );
@@ -228,42 +261,34 @@ export class AdminComponent {
     this.JobsService.DeleteUser(userId).subscribe(
       (response) => {
         console.log('User Successfully Deleted', response);
-        // window.location.reload();
+        window.location.reload();
       },
       (error) => {
         if (error.status === 404) {
-          alert('test test');
-        } else {
-          console.log('Error Occurred.', error);
-        }
-      }
-    );
-  }
-  public newRoleId: number = 1;
-  BecameAdmin(userId: number) {
-    this.JobsService.BecomeGod(userId, this.newRoleId).subscribe(
-      (response) => {
-        console.log('User Role Successfully Changed', response);
-      },
-      (error) => {
-        if (error.status === 404) {
-          alert('test');
+          this.router.navigate(['/error']);
+        } else if (error.status === 400) {
+          this.router.navigate(['/error-400']);
         } else {
           console.log('Error Occurred:', error);
         }
       }
     );
   }
-  // addJob(): void {
-  //   this.JobsService.AddJob(this.jobTitle)
-  //     .subscribe(
-  //       (response) => {
-  //         console.log('success', response);
-  //       },
-  //       (error) => {
-  //         console.error('error', error);
-  //       }
-  //     )
-  //     .add(() => console.log('Request completed'));
-  // }
+  BecameAdmin(userId: number) {
+    this.JobsService.BecomeGod(userId, this.newRoleId).subscribe(
+      (response) => {
+        console.log('User Role Successfully Changed', response);
+        window.location.reload();
+      },
+      (error) => {
+        if (error.status === 404) {
+          this.router.navigate(['/error']);
+        } else if (error.status === 400) {
+          this.router.navigate(['/error-400']);
+        } else {
+          console.log('Error Occurred:', error);
+        }
+      }
+    );
+  }
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobsService } from '../../Services/jobs.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
 import { Router } from '@angular/router';
 
 @Component({
@@ -59,8 +58,7 @@ export class LoginComponent {
             this.router.navigate(['/dashboard']);
           }, 500);
         } else {
-          // TODO Make Error component
-          // this.router.navigate(['/error']);
+          this.router.navigate(['/error']);
         }
       },
       (error) => {
